@@ -3,7 +3,7 @@
         conf        = require(process.env.PWD + '/conf'),
         request     = require('request'),
         _           = require('underscore'),
-        redmine     = new (require(process.env.PWD + '/lib/redmine'))(conf.redmine),
+        redmine     = new (require('../lib/redmine'))(conf.redmine),
         Transmission = require(process.env.PWD + '/lib/Transmission'),
         ref         = "redmine issues repartition"
     ;
