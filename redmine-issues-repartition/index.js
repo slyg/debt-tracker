@@ -4,7 +4,7 @@
         request     = require('request'),
         _           = require('underscore'),
         redmine     = new (require(__dirname + './../lib/redmine'))(conf.redmine),
-        Transmission = require(process.env.PWD + '/lib/Transmission'),
+        Transmission = require(process.env.PWD + '/assets/Transmission'),
         ref         = "redmine issues repartition"
     ;
     

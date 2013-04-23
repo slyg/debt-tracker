@@ -2,8 +2,8 @@
     var 
         conf        = require(process.env.PWD + '/conf'),
         request     = require('request'),
-        timeCounter = require(process.env.PWD + '/lib/timeCounter'),
-        Transmission = require(process.env.PWD + '/lib/Transmission'),
+        timeCounter = require(process.env.PWD + '/assets/timeCounter'),
+        Transmission = require(process.env.PWD + '/assets/Transmission'),
         ref         = "viadeo acqui prod status"
     ;
     

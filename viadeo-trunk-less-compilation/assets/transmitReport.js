@@ -2,7 +2,7 @@ var
     conf        = require(process.env.PWD + '/conf'),
     Q           = require('q'),
     request     = require('request'),
-    Transmission = require(process.env.PWD + '/lib/Transmission'),
+    Transmission = require(process.env.PWD + '/assets/Transmission'),
     ref         = "viadeo trunk less compilation", 
     deferred    = Q.defer()
 ;

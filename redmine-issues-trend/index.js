@@ -3,7 +3,7 @@
         conf        = require(process.env.PWD + '/conf'),
         request     = require('request'),
         redmine     = new (require(__dirname + './../lib/redmine'))(conf.redmine),
-        Transmission = require(process.env.PWD + '/lib/Transmission'),
+        Transmission = require(process.env.PWD + '/assets/Transmission'),
         ref         = "redmine issues trend",
         trendValStack  = []
     ;
