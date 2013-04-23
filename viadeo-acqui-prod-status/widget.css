@@ -1,0 +1,12 @@
+#acquistatus {
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 46pt;
+  font-weight: bold;
+}
+#acquidelay {
+	padding: 10px;
+}
+
+.red {color: red;}
+.green {color: lightgreen;}
