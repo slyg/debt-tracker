@@ -1,6 +1,5 @@
  
     var 
-        conf        = require(process.env.PWD + '/conf'),
         request     = require('request'),
         timeCounter = require(__dirname + './../lib/timeCounter'),
         Q           = require('q')
