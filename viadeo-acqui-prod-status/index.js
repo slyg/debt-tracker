@@ -3,32 +3,27 @@
         conf        = require(process.env.PWD + '/conf'),
         request     = require('request'),
         timeCounter = require(__dirname + './../lib/timeCounter'),
-        Transmission = require(process.env.PWD + '/assets/Transmission'),
-        ref         = "viadeo acqui prod status"
+        Q           = require('q')
     ;
     
     function main(){
+    
+        var deferred = Q.defer();
         
         // Acqui status
         timeCounter.register('acqui status');
-        request.get({url : conf.viadeo.url.acqui.prod}, function(error, response){
+        request.get({url : conf.viadeo.url.acqui.prod}, function(err, response){
         
-            if(error) throw new Error(err, "KO : viadeo-acqui-prod-status");
+            if(err) deferred.reject(err);
             
-            request.post(
-                new Transmission().addBodyParams({
-                    "_id" : conf.dashku.widgets[ref].reference,
-                    "value": response.statusCode,
-                    "delay": timeCounter.getFormatedDelay('acqui status')
-                }),
-                function(err, res){ 
-                    if(res.statusCode == 200) {
-                        console.log("OK : " + ref);
-                    } else { console.warn("KO : " + ref + " Transmission failed"); }
-                }
-            );
+            deferred.resolve({
+                "value": response.statusCode,
+                "delay": timeCounter.getFormatedDelay('acqui status')
+            });
             
-        });    
+        });  
+        
+        return deferred.promise;  
     }
     
     if(!module.parent) { main(); } else { module.exports = main; }

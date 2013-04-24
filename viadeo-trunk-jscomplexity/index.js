@@ -3,8 +3,7 @@
         conf        = require(process.env.PWD + '/conf'),
         request     = require('request'),
         timeCounter = require(__dirname + './../lib/timeCounter'),
-        Transmission = require(process.env.PWD + '/assets/Transmission'),
-        ref         = "viadeo trunk jscomplexity"
+        Q           = require('q')
     ;
     
     function main(){
@@ -13,26 +12,23 @@
             svnconf = require('./conf'),
             scansvn = require('./assets/scan'),
             formatData = require('./assets/formatData'),
-            repo = svnconf.svn.repo
+            repo = svnconf.svn.repo,
+            deferred = Q.defer()
         ;
         
         scansvn(repo, function(err, report){
+        
+            if(err) deferred.reject(err);
             
             var data = formatData(report);
             
-            request.post(
-                new Transmission().addBodyParams({
-                    "_id" : conf.dashku.widgets[ref].reference,
-                    "data": data
-                }),
-                function(err, res){
-                    if(res.statusCode == 200) {
-                        console.log("OK : " + ref);
-                    } else { console.warn("KO : " + ref + " Transmission failed"); }
-                }
-            );
+            deferred.resolve({
+                "data": data
+            });
             
         });
+        
+        return deferred.promise;
     
     }
     

@@ -4,11 +4,12 @@
         request     = require('request'),
         _           = require('underscore'),
         redmine     = new (require(__dirname + './../lib/redmine'))(conf.redmine),
-        Transmission = require(process.env.PWD + '/assets/Transmission'),
-        ref         = "redmine issues repartition"
+        Q           = require('q')
     ;
     
     function main(){
+    
+        var deferred = Q.defer();
         
         redmine.getIssues({query_id: "640", limit : "50"}, function(err, data) {
         
@@ -18,7 +19,7 @@
                 counts      = []
             ;
         
-            if(err) throw new Error(err, "KO : " + ref);
+            if(err) deferred.reject(err);
             
             _.each(data.issues, function(issue){
             
@@ -40,21 +41,11 @@
                 }
             }
             
-            request.post(
-                new Transmission().addBodyParams({
-                    "_id" : conf.dashku.widgets[ref].reference,
-                    "names": names,
-                    "values" : counts
-                }),
-                function(err, res){ 
-                    if(res.statusCode == 200) {
-                        console.log("OK : " + ref);
-                    } else { console.warn("KO : " + ref + " Transmission failed"); }
-                }
-            );
-            
+            deferred.resolve({"values" : counts});
             
         });
+        
+        return deferred.promise;
         
     } 
     

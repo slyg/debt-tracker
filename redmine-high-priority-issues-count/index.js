@@ -14,7 +14,7 @@
         
             if(err) deferred.reject(err);
             
-            deferred.resolve(data['total_count']);
+            deferred.resolve({"value" : data['total_count']});
             
         });
         
