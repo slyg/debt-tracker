@@ -1,0 +1,49 @@
+/* your widget's CSS goes here */
+img {
+  margin-top: 10px;
+}
+
+#message {
+  padding-top: 5px;
+  color: yellow;
+  font-size: 10pt;
+}
+
+#rules{
+  list-style-type:none;
+  text-align:left;
+  font-weight:bold;
+}
+
+#rules li span{
+	color:green;
+}
+
+.error{
+	color:red !important;
+}
+
+.warning{
+	color:orange;
+}
+
+.success{
+	color:green;
+}
+
+#alerts,#warnings{
+	text-align:left;
+}
+
+#note{
+	text-align:center;
+  font-weight:bold;
+}
+
+.marginbottom{
+	margin-bottom:10px;
+}
+
+.alignleft{
+	text-align:left;
+}
