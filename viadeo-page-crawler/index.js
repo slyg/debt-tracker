@@ -1,10 +1,12 @@
 var 
-    crawlability = require('../lib/crawlability'),
-    confJSON     = require('./conf.json'),
-    conf         = require(process.cwd() + '/conf'),
-    request      = require('request'),
-    timeCounter  = require(__dirname + './../lib/timeCounter'),
-    Q            = require('q')
+    crawlability = require('crawlability'),
+    confJSON = require('./conf.json'),
+    conf = require(process.cwd() + '/conf'),
+    request = require('request'),
+    timeCounter = require(__dirname + './../lib/timeCounter'),
+    Q = require('q'),
+    yslowH = require('./assets/yslowHandler'),
+    urlList = []
 ;
 
 
@@ -34,23 +36,36 @@ function main(){
                 for (x in report) {
                     data.url = x;
                     data.rules = report[x];
+                    urlList.push(x);
                 }
-                
+
                 data.note = getNotation(report[x]);
-                //request.post({ url: conf.dashku.url, body: data, json: true });
-                deferred.resolve({
-                    "url": data.url,
-                    "rules": data.rules,
-                    "note": data.note,
-                    "value": response.statusCode,
-                    "delay": timeCounter.getFormatedDelay('page crawler')
-                });
-                console.log(getNotation(report[x]));
+                 yslowH(urlList).then(
+                    function (yslowLog) {
+                        console.log('\n/////////////////////////////////////////');
+                        deferred.resolve({
+                            "url": data.url,
+                            "rules": data.rules,
+                            "note": data.note,
+                            "value": response.statusCode,
+                            "delay": timeCounter.getFormatedDelay('page crawler')
+                        });
+
+                        console.log(report);
+                    },
+                    function (err) {
+                        console.log('ERROR YSLOW');
+                    }
+                  );
             },
             function (err) {
-                console.log('ERROR');
+                console.log('ERROR CRAWLABILITY');
             }
         );
+
+       
+
+
     });
         
     return deferred.promise;
