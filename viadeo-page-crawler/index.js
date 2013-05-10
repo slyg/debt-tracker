@@ -10,6 +10,7 @@ var
 ;
 
 
+
 function getNotation(report){
     var result = 3;
     for (x in report) {
@@ -42,15 +43,15 @@ function main(){
                 data.note = getNotation(report[x]);
                  yslowH(urlList).then(
                     function (yslowLog) {
-                        console.log('\n/////////////////////////////////////////');
                         deferred.resolve({
                             "url": data.url,
                             "rules": data.rules,
                             "note": data.note,
+                            "yslowLog":yslowLog,
                             "value": response.statusCode,
                             "delay": timeCounter.getFormatedDelay('page crawler')
                         });
-
+                        console.log(yslowLog);
                         console.log(report);
                     },
                     function (err) {
