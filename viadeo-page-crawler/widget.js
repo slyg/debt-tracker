@@ -11,10 +11,31 @@ this.on('load', function(data){
 // This runs when the widget receives a transmission
 this.on('transmission', function(data){
   var message = widget.find('#message');
-  var url = widget.find('#url');
+	var url = widget.find('#url');
   var note = widget.find('#note');
+  var yslowReport = widget.find('#yslowReport');
   var alerts = widget.find('#alerts').empty();
   var warnings = widget.find('#warnings').empty();
+  
+  for(var key in data.yslowLog){
+  	var rule = widget.find('#'+key);
+    
+    if(data.yslowLog[key]!=null){
+      console.log(key);
+      rule.text(data.yslowLog[key]);
+    }
+    
+    if(key=="report"){
+      for(var rule in data.yslowLog[key]){
+      	console.log(data.yslowLog[key][rule].score);
+        if(data.yslowLog[key][rule].score<100){
+        	yslowReport.append("<li class='error'>"+data.yslowLog[key][rule].message+"</li>");
+        }
+      }
+       
+    }
+   
+  }
   
   for(var key in data.rules){
     var str = key.replace(':','-');
