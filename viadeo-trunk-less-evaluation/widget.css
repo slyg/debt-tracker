@@ -1,0 +1,9 @@
+.container {width: 640px; padding-top: 10px;}
+
+.dot {display: block; float: left; margin: 0 10px 10px 0; width: 15px; height: 15px; background-color: lightgreen; cursor: pointer;}
+
+.invalid {background-color: red;}
+.unreached {background-color: gray;}
+
+.form {padding-top: 10px;}
+.form input {width: 400px;}
