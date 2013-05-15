@@ -11,11 +11,13 @@ this.on('load', function(data){
 // This runs when the widget receives a transmission
 this.on('transmission', function(data){
   var message = widget.find('#message');
-	var url = widget.find('#url');
+  var url = widget.find('#url');
   var note = widget.find('#note');
   var yslowReport = widget.find('#yslowReport');
   var alerts = widget.find('#alerts').empty();
   var warnings = widget.find('#warnings').empty();
+  
+  yslowReport.find('.error,.warning').empty();
   
   for(var key in data.yslowLog){
   	var rule = widget.find('#'+key);
@@ -25,11 +27,12 @@ this.on('transmission', function(data){
       rule.text(data.yslowLog[key]);
     }
     
-    if(key=="report"){
+    if(key=="report" || key=="optional" ){
       for(var rule in data.yslowLog[key]){
       	console.log(data.yslowLog[key][rule].score);
         if(data.yslowLog[key][rule].score<100){
-        	yslowReport.append("<li class='error'>"+data.yslowLog[key][rule].message+"</li>");
+        	if(key=="report")yslowReport.append("<li class='error'>"+data.yslowLog[key][rule].message+"</li>");
+          else yslowReport.append("<li class='warning'>"+data.yslowLog[key][rule].message+"</li>");
         }
       }
        
@@ -47,10 +50,10 @@ this.on('transmission', function(data){
     if(data.rules[key].details.length!=0){
     		for(x in data.rules[key].details)
     		{
-              if(data.rules[key].required)alerts.append("<li>"+data.rules[key].details[x]+"</li>");
-              else warnings.append("<li>"+data.rules[key].details[x]+"</li>");
-       		  //console.log(data.rules[key].details[x]);
-            }
+          if(data.rules[key].required)alerts.append("<li>"+data.rules[key].details[x]+"</li>");
+          else warnings.append("<li>"+data.rules[key].details[x]+"</li>");
+       		//console.log(data.rules[key].details[x]);
+        }
     	}
     }
   }

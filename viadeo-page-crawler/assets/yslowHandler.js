@@ -12,12 +12,13 @@ module.exports = function yslowHandler(url, conf) { // conf ignored for now
 
     function getYrules(log) {
         var obj = {
-            "weight":log.w,
-            "score":log.o,
-            "req":log.r,
-            "report":[log.g.ydupes,log.g.yredirects,log.g.yno404,log.g.yemptysrc,log.g.ymindom]
+            "weight": log.w,
+            "score": log.o,
+            "req": log.r,
+            "report": [log.g.ydupes, log.g.yredirects, log.g.yno404, log.g.yemptysrc, log.g.ymindom],
+            "optional":[log.g.ynumreq,log.g.ycompress,log.g.yexpires,log.g.ycsstop,log.g.yjsbottom,log.g.yexpressions,log.g.yexternal,log.g.ydns,log.g.yminify,log.g.yetags,log.g.yxhr,log.g.yxhrmethod,log.g.ymincookie,log.g.ycookiefree,log.g.ynofilter,log.g.yimgnoscale,log.g.yfavicon]
         };
-       
+
         return obj;
     }
 
