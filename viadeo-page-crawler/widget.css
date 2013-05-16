@@ -1,4 +1,12 @@
 /* your widget's CSS goes here */
+section{
+	display:-webkit-flex
+}
+
+div.side{
+	width:50%;
+}
+
 img {
   margin-top: 10px;
 }
@@ -9,7 +17,17 @@ img {
   font-size: 10pt;
 }
 
-#rules{
+#links{
+	width:80%;
+  float:left;
+}
+
+#status{
+  float:left;
+	width:10%;
+}
+
+#rules,#yslowReport,#links,#status{
   list-style-type:none;
   text-align:left;
   font-weight:bold;
@@ -41,7 +59,7 @@ img {
 }
 
 .marginbottom{
-	margin-bottom:10px;
+	margin-bottom:5px;
 }
 
 .alignleft{

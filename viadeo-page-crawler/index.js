@@ -6,6 +6,8 @@ var
     timeCounter = require(__dirname + './../lib/timeCounter'),
     Q = require('q'),
     yslowH = require('./assets/yslowHandler'),
+    linkscraper = require('./assets/linkscraper'),
+    status = require('./assets/urlStatus'),
     urlList = []
 ;
 
@@ -32,6 +34,7 @@ function main(){
     request.get({ url: conf.dashku.url }, function (err, response) {
         var data = {};
         if (err) deferred.reject(err);
+        console.log('WAITING FOR CRAWLING SEO RULES...');
         crawlability(confJSON).then(
             function (report) {
                 for (x in report) {
@@ -41,18 +44,41 @@ function main(){
                 }
 
                 data.note = getNotation(report[x]);
-                 yslowH(urlList).then(
+                console.log('WAITING FOR YSLOW REPORT...');
+                yslowH(urlList).then(
                     function (yslowLog) {
-                        deferred.resolve({
-                            "url": data.url,
-                            "rules": data.rules,
-                            "note": data.note,
-                            "yslowLog":yslowLog,
-                            "value": response.statusCode,
-                            "delay": timeCounter.getFormatedDelay('page crawler')
-                        });
+
                         console.log(yslowLog);
                         console.log(report);
+
+                        data.logLinks = [];
+                        console.log('WAITING FOR URL SCAN...');
+                        linkscraper(urlList).then(
+                            function (links) {
+                                status(links).then(
+                                       function (statusList) {
+                                           data.logLinks = statusList;
+                                           console.log(data.logLinks);
+                                           deferred.resolve({
+                                               "url": data.url,
+                                               "rules": data.rules,
+                                               "note": data.note,
+                                               "yslowLog": yslowLog,
+                                               "logLinks": data.logLinks,
+                                               "value": response.statusCode,
+                                               "delay": timeCounter.getFormatedDelay('page crawler')
+                                           });
+                                       }
+                                    ),
+                                    function (err) {
+                                        console.log('ERROR STATUS');
+                                    }
+                            },
+                            function (err) {
+                                console.log('ERROR SCRAPER');
+                            }
+                        );
+                        console.log(urlList);
                     },
                     function (err) {
                         console.log('ERROR YSLOW');
@@ -63,9 +89,6 @@ function main(){
                 console.log('ERROR CRAWLABILITY');
             }
         );
-
-       
-
 
     });
         
