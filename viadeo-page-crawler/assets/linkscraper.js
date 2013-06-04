@@ -25,8 +25,9 @@ module.exports = function linkscraper(url) {
                     } else {
                         page.evaluate((function () {
                             var links = document.getElementsByTagName("a"), linklist = [];
+                            var regex = /^http/i;
                             for(var i=0, len=links.length; i<len; ++i){
-                                linklist.push(links[i].href);
+                                if(regex.exec(links[i].href)){linklist.push(links[i].href);}
                             }
                             return linklist;
                         }), function (result) {

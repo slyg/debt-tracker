@@ -7,7 +7,9 @@ var
     exec = require('child_process').exec
 ;
 
-module.exports = function yslowHandler(url, conf) { // conf ignored for now
+
+
+module.exports = function yslowHandler(url) {
     var deferred = Q.defer();
 
     function getYrules(log) {
@@ -33,7 +35,7 @@ module.exports = function yslowHandler(url, conf) { // conf ignored for now
     }, function (err) {
         if (err) { deferred.reject(err); } else { deferred.resolve(yslowLog); }
     });
-
+    
     return deferred.promise;
 
 };

@@ -48,15 +48,15 @@ this.on('transmission', function(data){
         var rule = widget.find('#'+str);
    	    if(data.rules[key]!=null){
           rule.text(data.rules[key].result);
-    					    if(data.rules[key].result==false||data.rules[key].result=="void")rule.addClass('error');
+            if(data.rules[key].result==false||data.rules[key].result=="void")rule.addClass('error');
     
-        if(data.rules[key].details.length!=0){
+            if(data.rules[key].details.length!=0){
     		    for(x in data.rules[key].details)
     		    {
-              if(data.rules[key].required)alerts.append("<li>"+data.rules[key].details[x]+"</li>");
-              else warnings.append("<li>"+data.rules[key].details[x]+"</li>");
-       		    //console.log(data.rules[key].details[x]);
-            }
+                    if(data.rules[key].required)alerts.append("<li>"+data.rules[key].details[x]+"</li>");
+                    else warnings.append("<li>"+data.rules[key].details[x]+"</li>");
+       		        //console.log(data.rules[key].details[x]);
+                }
     	    }
         }
       }
