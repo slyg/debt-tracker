@@ -1,37 +1,35 @@
 var 
     Q = require('q'),
-    data={
-        urlList : []
-    }
+    objList =[]
 ;
-
-function getNotation(report){
-    var result = 3;
-    for (x in report) {
-        if (x == "title" || x == "description" || x == "headings") {
-            if (report[x].result == false) return 0;
-        }
-        if (x == "link-img-alt" || x == "img-alt" || x == "microformats") {
-            if (report[x].result == false) return 1;
-        }
-    }
-    return result;
-}
-
 
 module.exports = function generateDatas(SEOreport) {
 
     var deferred = Q.defer();
-
     for (x in SEOreport) {
-        data.url = x;
-        data.rules = SEOreport[x];
-        data.urlList.push(x);
+        var data = {
+            "url": x,
+            "rules": SEOreport[x]
+        }
+        for (var key in data.rules) {
+            if (key == "title" || key == "description" || key == "headings") {
+                if (data.rules[key].result == false){
+                   data.note = "CRITICAL";
+                   break;  
+                }
+            }
+            if (key == "link-img-alt" || key == "img-alt" || key == "microformats") {
+                if (data.rules[key].result == false){
+                   data.note = "WARNING"; 
+                   break; 
+                }
+            }
+            else data.note = "OK";
+        }
+        objList.push(data);
     }
 
-    data.note = getNotation(SEOreport[x]);
-
-    deferred.resolve(data);
+    deferred.resolve(objList);
 
     return deferred.promise;
 
