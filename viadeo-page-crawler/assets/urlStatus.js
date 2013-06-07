@@ -15,31 +15,37 @@ module.exports = function urlStatus(report) {
             {
                 "name": key,
                 "urlList": report[key].href,
-                "statusList": []
+                "statusList": [],
+                "ratio": 0
             }
         );
     }
 
     async.eachSeries(urlsStatus, function (urlList, next) {
+        var err4 = 0;
         async.eachLimit(urlList.urlList, 10, function (url, next) {
             request(url, function (error, response, body) {
                 if (response != undefined) {
                     if (response.statusCode != 200) {
                         urlList.statusList.push({
-                            "url":url,
-                            "status":response.statusCode
+                            "url": url,
+                            "status": response.statusCode
                         });
+                        if (response.statusCode == 401 || response.statusCode == 403) {
+                            err4++;
+                        }
                     }
-                        next();
+                    urlList.ratio = Math.round(err4 / urlList.urlList.length * 100);
+                    next();
                 }
             })
-        },function(){
+        }, function (err) {
+            if (err) console.log;
             next();
         }
     );
 
     }, function (err) {
-        //console.log(urlsStatus)
         deferred.resolve(urlsStatus);
     });
 

@@ -12,14 +12,16 @@ this.on('load', function(data){
 this.on('transmission', function (data) {
     var message = widget.find('#message');
     var tbody = widget.find('tbody');
+  	var ratio = widget.find('#ratio');
     console.log(data);
+  	ratio.append(data.ratio+"%");
     for (key in data) {
         if(data[key].statusList!=undefined){
             var prop = data[key];
             tbody.append("<tr><td><a href='" + prop.name + "' target='_blank'>" + prop.name + "</a></td><td class='note'><a href='#' class=" + getColor(prop.statusList) + " data-open='false'>" + getColor(prop.statusList) + "</a></td></tr>"+ getDetails(prop.statusList) + "");
         }
     }
-    $('.ko').mousedown(
+    $('.ko,.err4').live('mousedown',
   	    function(e){
   	        if ($(this).attr('data-open')=="false") {
               $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');
@@ -36,7 +38,15 @@ this.on('transmission', function (data) {
 
 function getColor(list){
     var classname = "ok";
-    if (list.length!=0) classname = "ko";
+  	if (list.length!=0){	
+      for(key in list){
+          if(list[key].status == 401 || list[key].status == 401)classname="err4";
+         else{
+           classname = "ko";
+         	 break;
+         }
+      }
+    }
     return classname;
 }
 

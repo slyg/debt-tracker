@@ -19,7 +19,7 @@ this.on('transmission', function (data) {
                 tbody.append("<tr><td><a href='" + prop.url + "' target='_blank'>" + prop.url.substring(0,20) + "</a></td><td>" + prop.req + "</td><td>" + prop.weight + " Ko</td><td class='note'><a href='#' class=" + getColor(prop.score) + " data-open='false'>" + prop.score + "</a></td></tr>" + getDetails(prop.report,prop.optional) + "");
         }
     }
-    $('.warning,.critical,.normal').mousedown(
+    $('.war,.crit,.normal').die("mousedown").live('mousedown',
   	    function(e){
   	        if ($(this).attr('data-open')=="false") {
               $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');
@@ -47,10 +47,10 @@ function getDetails(report,optional){
     for(rule in report){
       if(report[rule].score<100 && report[rule].message!=""){
       	if(report[rule].score<50){
-              tpl+="<tr class='details'><td class='critical' colspan='4'>";
+              tpl+="<tr class='details'><td class='crit' colspan='4'>";
             }
         else{
-               tpl+="<tr class='details'><td class='warning' colspan='4'>";
+               tpl+="<tr class='details'><td class='war' colspan='4'>";
             }
         tpl+=" - <b>"+report[rule].name+"</b><br />"+report[rule].message+"</td></tr>";
      }
@@ -59,7 +59,7 @@ function getDetails(report,optional){
     for(rule in optional){
       if(optional[rule].score!=undefined && optional[rule].message!=""){
       	if(optional[rule].score<50){
-              tpl+="<tr class='details'><td class='warning' colspan='4'>";
+              tpl+="<tr class='details'><td class='war' colspan='4'>";
             }
         else{
                tpl+="<tr class='details'><td class='' colspan='4'>";
