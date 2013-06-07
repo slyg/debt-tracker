@@ -13,7 +13,13 @@ function main(){
     crawlability(confJSON)
     .then(status)
     .then(function (datas) {
-         deferred.resolve(datas);
+        var total = 0;
+        for (obj in datas) {
+            total += datas[obj].ratio;
+        }
+        var ratio = total / datas.length;
+        datas.ratio = ratio;
+        deferred.resolve(datas);
     });
 
     return deferred.promise;

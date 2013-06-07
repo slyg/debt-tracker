@@ -25,11 +25,11 @@ section tbody tr td:not(:first-child){
 	text-align:center;
 }
 
-.critical{
+.crit{
 	color:#e72e2e;
 }
 
-.warning{
+.war{
 	color:#ff9001;
 }
 
