@@ -2,7 +2,7 @@
     var 
         path        = require('path'),
         fs          = require('fs'),
-        LessParser  = require('less').Parser,
+        less        = require('less'),
         conf        = require('../conf'),
         async       = require('async'),
         Q           = require('q'),
@@ -49,9 +49,10 @@
             if (err) {
                 fileReport.err = {type : 'not found', details : err};
                 cb(fileReport);
-            } else { 
+            } else {
                 fileReport.found = true;
-                (new LessParser()).parse(data.toString(), function(err, tree){
+                var parser = new (less.Parser)({});
+                parser.parse(data.toString(), function(err, tree){
                     if(err) {
                         fileReport.err = {type : 'parsing', details : err};
                     } else {
