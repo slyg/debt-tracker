@@ -14,6 +14,9 @@ this.on('transmission', function (data) {
     var tbody = widget.find('tbody');
   	var ratio = widget.find('#ratio');
     tbody.empty();
+    ratio.empty();
+    message.remove();
+    tbody.empty();
     console.log(data);
   	ratio.append(data.ratio+"%");
     for (key in data) {
@@ -24,7 +27,8 @@ this.on('transmission', function (data) {
         }
       }
     }
-    $('.ko,.err4').live('mousedown',
+    $('.ko,.err4').off();
+    $('.ko,.err4').on('mousedown',
   	    function(e){
   	        if ($(this).attr('data-open')=="false") {
               $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');

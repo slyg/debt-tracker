@@ -12,14 +12,17 @@ this.on('load', function(data){
 this.on('transmission', function (data) {
     var message = widget.find('#message');
     var tbody = widget.find('tbody');
-    //console.log(data);
+    tbody.empty();
+    message.remove();
+    tbody.empty();
     for (key in data) {
         var prop = data[key];
         if (prop.optional != undefined) {
                 tbody.append("<tr><td><a href='" + prop.url + "' target='_blank'>" + prop.url.substring(0,20) + "</a></td><td>" + prop.req + "</td><td>" + prop.weight + " Ko</td><td class='note'><a href='#' class=" + getColor(prop.score) + " data-open='false'>" + prop.score + "</a></td></tr>" + getDetails(prop.report,prop.optional) + "");
         }
     }
-    $('.war,.crit,.normal').die("mousedown").live('mousedown',
+    $('.war,.crit,.normal').off();
+    $('.war,.crit,.normal').on('mousedown',
   	    function(e){
   	        if ($(this).attr('data-open')=="false") {
               $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');
@@ -36,7 +39,7 @@ this.on('transmission', function (data) {
 
 function getColor(score){
     var classname = "normal";
-    if (score < 75) classname = "warning";
+    if (score < 75) classname = "war";
     else if(score<50) classname = "critical";
     return classname;
 }
