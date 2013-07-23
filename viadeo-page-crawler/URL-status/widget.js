@@ -13,15 +13,22 @@ this.on('transmission', function (data) {
     var message = widget.find('#message');
     var tbody = widget.find('tbody');
   	var ratio = widget.find('#ratio');
+    tbody.empty();
+    ratio.empty();
+    message.remove();
+    tbody.empty();
     console.log(data);
   	ratio.append(data.ratio+"%");
     for (key in data) {
+      if(data[key]!=null){
         if(data[key].statusList!=undefined){
             var prop = data[key];
-            tbody.append("<tr><td><a href='" + prop.name + "' target='_blank'>" + prop.name + "</a></td><td class='note'><a href='#' class=" + getColor(prop.statusList) + " data-open='false'>" + getColor(prop.statusList) + "</a></td></tr>"+ getDetails(prop.statusList) + "");
+            tbody.append("<tr><td><a href='" + prop.name + "' target='_blank'>" + prop.name.substring(0,30) + "</a></td><td class='note'><a href='#' class=" + getColor(prop.statusList) + " data-open='false'>" + getColor(prop.statusList) + "</a></td></tr>"+ getDetails(prop.statusList) + "");
         }
+      }
     }
-    $('.ko,.err4').live('mousedown',
+    $('.ko,.err4').off();
+    $('.ko,.err4').on('mousedown',
   	    function(e){
   	        if ($(this).attr('data-open')=="false") {
               $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');

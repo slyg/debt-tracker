@@ -11,6 +11,9 @@ this.on('load', function(data){
 this.on('transmission', function(data){
   var message = widget.find('#message');
   var tbody = widget.find('tbody');
+  tbody.empty();
+  message.remove();
+  tbody.empty();
   console.log(data);
   message.text(data.message).hide().fadeIn();
   for(key in data){
@@ -18,19 +21,21 @@ this.on('transmission', function(data){
     	tbody.append("<tr><td><a href='"+data[key].url+"' target='_blank'>"+data[key].url.substring(0,20)+"</a></td><td class='note'><a href='#' class="+data[key].note.toLowerCase()+" data-open='false'>"+data[key].note+"</a></td></tr>"+getDetails(data[key].rules)+"");
     }
   }
-  $('.warning,.critical').mousedown(
-  	function(e){
-  	    if ($(this).attr('data-open')=="false") {
-          $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');
-          $(this).attr('data-open','true');
-  	    }
-  	    else{
-					$(this).parents('tr').nextUntil('tr:not(.details)').hide('fast');
-          $(this).attr('data-open','false');
-  	    }
-      	e.preventDefault();
-    }
-  );
+    $('.warning,.critical').off();
+    $('.warning,.critical').on('mousedown',
+      function(e){
+          if ($(this).attr('data-open')=="false") {
+            $(this).parents('tr').nextUntil('tr:not(.details)').show('fast');
+            $(this).attr('data-open','true');
+          }
+          else{
+            $(this).parents('tr').nextUntil('tr:not(.details)').hide('fast');
+            $(this).attr('data-open','false');
+          }
+          e.preventDefault();
+      }
+    );
+
 });
 
 function getDetails(rules){
