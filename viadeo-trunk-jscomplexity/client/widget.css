@@ -1,15 +1,15 @@
 #cr-graph-container {
-  	margin: 0 auto;
-  	font-size: 12px; 
-  	padding: 0;
-  	position: relative;
+    margin: 0 auto;
+    font-size: 12px; 
+    padding: 0;
+    position: relative;
 }
 
 .wrapper {
   width: 800px;
   height: 320px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: none;
   padding: 20px 40px;
   border-radius: 10px;
 }
@@ -17,7 +17,7 @@
 #path {position: absolute; left: 225px; width: 500px; z-index: 1;}
 
     .labely {
-  		color: #000;
+      color: #fff;
       position: absolute; 
       top: 20px; 
       left: -20px; 
@@ -27,7 +27,7 @@
       -moz-transform-origin: right bottom;
     }
     .labelx {
-  		color: #000;
+      color: #fff;
       width: 300px; 
       position: absolute; 
       bottom: 30px; 

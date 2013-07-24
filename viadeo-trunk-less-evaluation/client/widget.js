@@ -4,30 +4,32 @@ this.on('load', function(){
   
   widget.on("click", ".dot", function(){
     var ref = this.id;
-    widget.find('#packagename').val(ref);
+    widget.find('#csspath').val(ref);
   });
 
 });
 
 this.on('transmission', function(res){
   
- 	var 
+  var 
       data = res.data,
       len = data.length,
       dom = widget.find('.container'),
       html = "",
       validClass = "",
       statusClass = ""
- 	;
-   
-  for(var prop in data){
-   
-    validClass = (data[prop]["passed"] != true) ? "invalid" : "";
+  ;
+  
+  while(len--){
     
-    html += "<span class=\"dot " + validClass + " \" id=\"" + prop + "\"></span>";
+    validClass = (data[len]["valid"] != true) ? "invalid red-pulse" : "";
+    statusClass = (data[len]["found"] != true) ? "unreached" : "";
     
-	}
+    html += "<span class=\"dot " + validClass + " " + statusClass + " \" id=\"" + data[len]["reference"] + "\"></span>";
+    
+  }
   
   dom.empty().html(html);
+  
   
 });

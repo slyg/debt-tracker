@@ -1,6 +1,6 @@
-.container {width: 640px; padding-top: 10px;}
+.container {width: 840px; padding-top: 10px;}
 
-.dot {display: block; float: left; margin: 0 10px 10px 0; width: 15px; height: 15px; background-color: lightgreen; cursor: pointer;}
+.dot {display: block; float: left; margin: 0 10px 10px 0; width: 15px; height: 15px; background-color: #6633CC; cursor: pointer;}
 
 .invalid {background-color: red;}
 .unreached {background-color: gray;}

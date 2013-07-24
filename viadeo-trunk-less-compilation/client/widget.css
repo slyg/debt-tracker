@@ -1,9 +1,12 @@
-.container {width: 410px; padding-top: 10px;}
-
-.dot {display: block; float: left; margin: 0 10px 10px 0; width: 15px; height: 15px; background-color: green; cursor: pointer;}
+.errors {padding-top: 10px; list-style-type: none; text-align: left; color: orange; margin: 0 10px;}
+li {font-family: consolas; padding: 2px 5px; background-color: #333; margin-bottom: 1px;}
 
 .invalid {background-color: red;}
 .unreached {background-color: gray;}
-
-.form {padding-top: 10px;}
-.form input {width: 400px;}
+.status {color: lightgreen;
+  padding: 10px;
+  margin-top: 90px;
+  font-size: 46pt;
+  font-weight: bold; 
+}
+.ko {color: red; margin-top: 10px;}

@@ -12,10 +12,10 @@ this.on('load', function(data){
 
 this.on('transmission', function(res){
   
-  	widget.find("#graph-holder").empty();
+    widget.find("#graph-holder").empty();
   
     var 
-        data				= res.data,
+        data        = res.data,
             
         difficulty  = data.difficulty,
         complexity  = data.complexity,
@@ -34,26 +34,28 @@ this.on('transmission', function(res){
         }
     ;
   
-  	console.log(lineNum, complexity, difficulty, ref)
+    console.log(lineNum, complexity, difficulty, ref)
   
-  	new Graph({
+    new Graph({
       holder : "graph-holder",
       xs : lineNum,
       ys : complexity,
       heat : difficulty
     });
   
-  	function Graph(){
+    function Graph(){
       var options = arguments[0];             
       var
           r = Raphael(options.holder),
           index = ref.length - 1,
           xs = options.xs,
           ys = options.ys,
-          heat = options.heat
-          ;
+          heat = options.heat   
+      ;
+      
       r
         .dotchart(posx, posy, width, height, xs, ys, heat, opt)
+        .attr([{}, {fill : "#fff"}])
         .hover(function(){
           var markerLabel = this.label;
           this.marker = 
