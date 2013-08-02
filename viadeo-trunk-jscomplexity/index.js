@@ -1,29 +1,28 @@
- 
+    
     var 
-        request     = require('request'),
-        timeCounter = require(__dirname + './../lib/timeCounter'),
-        Q           = require('q')
+        Q           = require('q'),
+        cwd         = process.cwd(),
+        path        = require('path'),
+        conf        = require('./conf'),
+        jscr        = require('jscomplexity'),
+        util        = require('util')
     ;
     
     function main(){
     
         var 
-            svnconf = require('./conf'),
-            scansvn = require('./assets/scan'),
             formatData = require('./assets/formatData'),
-            repo = svnconf.svn.repo,
-            deferred = Q.defer()
+            deferred = Q.defer(),
+            jsTreeFilePath = path.join(cwd, conf.workspace.path, conf.workspace.targetDir)
         ;
         
-        scansvn(repo, function(err, report){
+        jscr(jsTreeFilePath, function(err, report){
         
             if(err) deferred.reject(err);
             
             var data = formatData(report);
             
-            deferred.resolve({
-                "data": data
-            });
+            deferred.resolve({"data": data});
             
         });
         
