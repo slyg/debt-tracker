@@ -5,13 +5,14 @@ var
     conf    = require('../conf'),
     dir     = conf.svn.dir,
     src     = conf.svn.src
+    ws      = conf.workspace.path
 ;
 
-module.exports = function(ws){
+module.exports = function(){
         
     var 
         deferred = Q.defer(),
-        targetPath = path.join(ws, dir, src)
+        targetPath = path.join(process.cwd(), ws, dir, src)
     ;
     
     deferred.resolve(targetPath);
