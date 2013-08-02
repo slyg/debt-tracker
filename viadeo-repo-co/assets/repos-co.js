@@ -5,8 +5,8 @@
 var 
     Q           = require('q'),
     cwd         = process.cwd(),
-    conf        = require('./../conf.json'),
-    checkout    = require('./svn-co')
+    conf        = require('./../../conf/repos.json'), // that is a common conf
+    checkout    = require('./svn-co-command')
 ;
 
 module.exports = function(references){

@@ -1,6 +1,6 @@
 .DS_Store
-conf.js
-conf.json
+*conf.js
+*conf.json
 node_modules/
 viadeo-trunk-less-compilation/webxmlworkspace/
 viadeo-trunk-less-evaluation/frontend-framework-workspace

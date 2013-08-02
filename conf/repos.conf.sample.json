@@ -1,0 +1,10 @@
+{
+    "viadeo-jsp" : {
+        "svn" : { "repo" : "svn/viaduc/viadeo/viadeo-solution/trunk/webapp/viadeo-jsp/src/main" },
+        "workspace" : { "path" : "/viadeo-jsp-workspace" }
+    },
+    "frontend-framework" : {
+        "svn" : { "repo" : "svn/viaduc/viadeo/viadeo-solution/trunk/shared/framework/viadeo-frontend-framework" },
+        "workspace" : { "path" : "/frontend-framework-workspace" }
+    }
+}

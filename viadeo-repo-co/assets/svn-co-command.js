@@ -1,6 +1,6 @@
 // dependencies
 
-var cl = require('./cl');
+var cl = require('./cl-childprocess');
 
 // launch command line instruction then launch callback
 
