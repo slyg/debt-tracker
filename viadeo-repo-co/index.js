@@ -11,7 +11,7 @@
         
         Q   
             .all(repoCo([
-                //'viadeo-jsp',
+                'viadeo-jsp',
                 'frontend-framework'
             ]))
             .then(deferred.resolve, deferred.reject)
