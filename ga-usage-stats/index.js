@@ -17,12 +17,10 @@
         
         caspercl.stdout.on('data', function (data) {
         
-            deferred.resolve({"avg_req_per_day" : data);
-        
-            console.log('stdout: ' + data);
+            deferred.resolve({"avg_req_per_day" : data});
         });
         
-        caspercl.stout.on('error', function(err){ deferred.reject(err); });
+        caspercl.stdout.on('error', function(err){ deferred.reject(err); });
             
         return deferred.promise;
         
