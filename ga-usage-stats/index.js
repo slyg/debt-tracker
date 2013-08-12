@@ -11,7 +11,7 @@
             caspercl = spawn('casperjs', [
                 '--ignore-ssl-errors=true', 
                 '--load-images=false', 
-                './assets/scraper.js'
+                './scraper.js'
             ])
         ;
         
