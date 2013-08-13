@@ -1,7 +1,8 @@
 
     var 
         conf = require(process.env.PWD + '/conf'),
-        Q    = require('q')
+        Q    = require('q'),
+        path = require('path')
     ;
     
     function main(){
@@ -11,7 +12,7 @@
             caspercl = spawn('casperjs', [
                 '--ignore-ssl-errors=true', 
                 '--load-images=false', 
-                './scraper.js'
+                path.resolve(__dirname, './scraper.js')
             ])
         ;
         
