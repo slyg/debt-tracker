@@ -16,8 +16,7 @@
         ;
         
         caspercl.stdout.on('data', function (data) {
-        
-            deferred.resolve({"avg_req_per_day" : "" + data});
+            deferred.resolve({"avg_req_per_day" : data.toString('utf8')});
         });
         
         caspercl.stdout.on('error', function(err){ deferred.reject(err); });
