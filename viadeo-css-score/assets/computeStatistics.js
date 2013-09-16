@@ -13,6 +13,7 @@ module.exports = function(rawData){
 		var packageItem = rawData[packageName];
 
 		if(packageItem.passed) {
+			// TODO : REMOVE THIS TRY/CATCH
 			try {
 				cssScore(packageItem.css, function(err, report){
 					if(!err){
