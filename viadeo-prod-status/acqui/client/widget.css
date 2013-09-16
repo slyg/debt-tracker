@@ -1,0 +1,12 @@
+.prodstatus {
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 46pt;
+  font-weight: bold;
+}
+.proddelay {
+	padding: 10px
+}
+
+.red {color: red;}
+.green {color: lightgreen;}
