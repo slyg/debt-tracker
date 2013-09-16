@@ -31,6 +31,7 @@ module.exports = function compileLessData(data){
                 var css = tree.toCSS({compress:true});
                 deferred.resolve({
                     passed : true, 
+                    css : css,
                     err : null
                 });
             } catch(err){
