@@ -2,7 +2,8 @@
     var 
         path        = require('path'),
         Q           = require('q'),
-        util        = require('util')
+        util        = require('util'),
+        _           = require('underscore')
     ;
     
     function main(){
@@ -20,8 +21,12 @@
             .then(require('./../viadeo-trunk-less-parsing/assets/lessCompilation'))   // compiles groups and returns report
             .then(require('./assets/computeStatistics'))
             .then(function(report){
-                console.log( util.inspect(report, false, null) );
-                deferred.resolve({"data": report});
+
+                var formatedReport = _.map(report, function(item, key){ item.label = key; return item });
+
+                console.log( util.inspect(formatedReport, false, null) );
+                deferred.resolve({"data": formatedReport});
+                
             }, function(err){
                 deferred.reject(err);
             })

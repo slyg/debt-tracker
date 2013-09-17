@@ -1,0 +1,11 @@
+#bar-graph-holder {padding: 10px 20px;}
+#bar-graph-holder rect {
+  stroke: white;
+  fill: steelblue;
+  font-family: Arial;
+}
+#bar-graph-holder text {
+  font-family: Arial;
+  fill: white;
+  font-size: 10pt;
+}
