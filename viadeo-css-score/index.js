@@ -22,7 +22,7 @@
             .then(require('./assets/computeStatistics'))
             .then(function(report){
 
-                var formatedReport = _.map(report, function(item, key){ item.label = key; return item });
+                var formatedReport = _.map(report, function(item, key){ item.label = key; return item; });
 
                 console.log( util.inspect(formatedReport, false, null) );
                 deferred.resolve({"data": formatedReport});
