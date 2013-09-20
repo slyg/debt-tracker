@@ -1,28 +1,47 @@
 <!doctype html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="bower_components/tetra-ui/dist/css/tetra-ui.css" />
+		<link rel="stylesheet" type="text/css" href="colorbrewer.css" />
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.3.3/d3.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+		<script type="text/javascript" src="colorbrewer.js"></script>
 		<style type="text/css">
-			body {background: #222;}
-			#bar-graph-holder {padding: 10px 20px;}
+
+			body {background: #e8e9eb; padding: 30px;}
+
+			#bar-graph-holder svg {
+				shape-rendering: crispEdges;
+			}
+
 			#bar-graph-holder rect {
-			  /*fill: #aaa;*/
 			  font-family: Arial;
 			}
+
 			#bar-graph-holder text {
 			  font-family: Arial;
-			  fill: #fff;
+			  fill: #000;
 			  font-size: 8pt;
 			}
 
-			#bar-graph-holder .line {
-			  stroke : #444;
-			}
+			#bar-graph-holder .line { stroke : #444; }
+
 		</style>
 	</head>
 	<body>
-		<div id="bar-graph-holder"></div>
+		<h2 class="h2">CSS Specificity stats</h2>
+		<div class="bx">
+			<ul class="nav nav-tabs-secondary">
+				<li class="active" data-filter="avgScore"><a>Avg Score</a></li>
+				<li data-filter="score"><a>Total Score</a></li>
+				<li data-filter="explainScore"><a>Explain Score</a></li>
+				<li data-filter="explainAvgScore"><a>Explain Avg Score</a></li>
+				<li data-filter="cssLength"><a>Weight</a></li>
+				<li data-filter="selectorsCount"><a>Selectors count</a></li>
+			</ul>
+			<div id="bar-graph-holder" class="mtl"></div>
+		</div>
 		<script src="viz.js"></script>
 	</body>
 </html>

@@ -4,7 +4,8 @@ d3.json("data.json", function(error, data){
       containerId = "#bar-graph-holder",
       chart = null, 
       store = new Store(data),
-      scaler = new Scaler(data),
+      numScaler = new NumScaler(data),
+      colorScaler = new ColorScaler(data),
       tickNum = 10
   ;
 
@@ -21,11 +22,11 @@ d3.json("data.json", function(error, data){
     
     /* Computing scale */
 
-    var scale = scaler.calc(param);
+    var numScale = numScaler.calc(param);
 
     /* Computing colors */
 
-    var color = d3.scale.category20();
+    var colorScale = colorScaler.calc(param);
     
     /* Bars */
     
@@ -34,8 +35,8 @@ d3.json("data.json", function(error, data){
         .append('rect')
         .attr('y', function(d, i) { return i * 21; })
         .attr('height', 20)
-        .attr('width', function(d){return scale(d[param]);})
-        .attr('fill', function(d, i){ return color(i); })
+        .attr('width', function(d){return numScale(d[param]);})
+        .attr('fill', function(d, i){ return colorScale(i); })
     ;
     
     /* labels */
@@ -54,23 +55,23 @@ d3.json("data.json", function(error, data){
     
     /* adding rules */
     
-    chart.selectAll("line").data(scale.ticks(tickNum))
+    chart.selectAll("line").data(numScale.ticks(tickNum))
       .enter()
         .append("line")
         .attr("class", "line")
-        .attr("x1", scale)
-        .attr("x2", scale)
+        .attr("x1", numScale)
+        .attr("x2", numScale)
         .attr("y1", 0)
         .attr("y2", data.length * 21)
     ;
     
     /* adding rules labels */
     
-    chart.selectAll(".rule").data(scale.ticks(tickNum))
+    chart.selectAll(".rule").data(numScale.ticks(tickNum))
       .enter()
         .append("text")
         .attr("class", "rule")
-        .attr("x", scale)
+        .attr("x", numScale)
         .attr("y", 0)
         .attr("dy", -5)
         .attr("text-anchor", "middle")
@@ -85,13 +86,13 @@ d3.json("data.json", function(error, data){
 
     /* recomputing scale */
 
-    var scale = scaler.calc(param);
+    var numScale = numScaler.calc(param);
 
     /* updating bars */
 
     chart.selectAll("rect").data(data)
       .transition()
-        .attr('width', function(d){return scale(d[param]);})
+        .attr('width', function(d){return numScale(d[param]);})
     ;
 
     chart.selectAll(".line").remove();
@@ -99,23 +100,23 @@ d3.json("data.json", function(error, data){
 
     /* adding rules */
     
-    chart.selectAll("line").data(scale.ticks(tickNum))
+    chart.selectAll("line").data(numScale.ticks(tickNum))
       .enter()
         .append("line")
         .attr("class", "line")
-        .attr("x1", scale)
-        .attr("x2", scale)
+        .attr("x1", numScale)
+        .attr("x2", numScale)
         .attr("y1", 0)
         .attr("y2", data.length * 21)
     ;
     
     /* adding rules labels */
     
-    chart.selectAll(".rule").data(scale.ticks(tickNum))
+    chart.selectAll(".rule").data(numScale.ticks(tickNum))
       .enter()
         .append("text")
         .attr("class", "rule")
-        .attr("x", scale)
+        .attr("x", numScale)
         .attr("y", 0)
         .attr("dy", -5)
         .attr("text-anchor", "middle")
@@ -145,12 +146,12 @@ d3.json("data.json", function(error, data){
 
   }
 
-  function Scaler(data){
+  function NumScaler(data){
 
     this._data = data;
 
     this.calc = function(param){
-      return d3.scale.linear()
+      return d3.scale.sqrt()
         .domain([0, d3.max(this._data, function(d){ return +d[param]; })])
         .range(["0", "100%"])
       ;
@@ -158,8 +159,29 @@ d3.json("data.json", function(error, data){
 
   }
 
+  function ColorScaler(data){
+
+    this.len = data.length;
+    this.colorLow = '#7dcde3'; 
+    this.colorHigh = '#006aa8';
+
+    this.calc = function(){
+      return d3.scale.sqrt()
+      .domain([0, this.len])
+      .range([this.colorHigh, this.colorLow]);
+    }
+
+  }
+
   window.update = update;
 
-  draw("score");
+  draw("avgScore");
+
+});
+
+$('li').click(function(){
+
+  $(this).addClass('active').siblings().removeClass('active');
+  update($(this).data('filter'));
 
 });
