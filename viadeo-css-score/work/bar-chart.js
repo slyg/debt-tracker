@@ -1,7 +1,7 @@
-d3.json("data.json", function(error, data){
+function barChart(error, data){
 
   var 
-      containerId = "#bar-graph-holder",
+      containerId = "#bar-chart-holder",
       chart = null, 
       store = new Store(data),
       numScaler = new NumScaler(data),
@@ -173,15 +173,10 @@ d3.json("data.json", function(error, data){
 
   }
 
-  window.update = update;
+  window.updateBarGraph = update;
 
   draw("avgScore");
 
-});
+};
 
-$('li').click(function(){
 
-  $(this).addClass('active').siblings().removeClass('active');
-  update($(this).data('filter'));
-
-});
