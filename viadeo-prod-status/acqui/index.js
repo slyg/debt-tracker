@@ -1,1 +1,0 @@
-module.exports = require('./../common')('http://join.viadeo.com');

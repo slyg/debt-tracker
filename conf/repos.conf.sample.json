@@ -1,18 +1,18 @@
 {
     "module1" : {
         "svn" : { 
-            "repo" : "svn/path/to/mod1" 
+            "repo" : "svn/foo" 
         },
         "workspace" : {
-            "path" : "/mod1-workspace" 
+            "path" : "/workspace/foo" 
         }
     },
     "module2" : {
         "svn" : { 
-            "repo" : "svn/path/to/mod2" 
+            "repo" : "svn/bar"
         },
         "workspace" : { 
-            "path" : "/mod2-workspace" 
+            "path" : "/workspace/bar" 
         }
     }
 }
