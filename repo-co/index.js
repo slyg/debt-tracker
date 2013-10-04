@@ -2,7 +2,8 @@
     var 
         path        = require('path'),
         Q           = require('q'),
-        repoCo      = require('./assets/repos-co')
+        repoCo      = require('./assets/repos-co'),
+        conf        = require('./conf')
     ;
     
     function main(){
@@ -10,10 +11,7 @@
         var deferred = Q.defer();
         
         Q   
-            .all(repoCo([
-                'viadeo-jsp',
-                'frontend-framework'
-            ]))
+            .all(repoCo(conf.repos))
             .then(deferred.resolve, deferred.reject)
         ;
         
