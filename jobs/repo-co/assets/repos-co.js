@@ -5,7 +5,7 @@
 var 
     Q           = require('q'),
     cwd         = process.cwd(),
-    conf        = require('./../../conf/repos.conf.json'), // that is a common conf
+    conf        = require('./../../../conf/repos.conf.json'), // that is a common conf
     checkout    = require('./svn-co-command')
 ;
 
