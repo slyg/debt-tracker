@@ -1,39 +1,43 @@
 var widget = this.widget;
 
 this.on('load', function(){
-	widget.parent().removeClass('red-pulse');
+  
+  widget.on("click", ".dot", function(){
+    var ref = this.id;
+    widget.find('#packagename').val(ref);
+  });
+
 });
 
 this.on('transmission', function(res){
   
- 	var 
+  var 
       data = res.data,
       len = data.length,
       dom = widget.find('.errors'),
       html = "",
       validClass = "",
       statusClass = ""
- 	;
+  ;
   
   widget.parent().removeClass('red-pulse');
   widget.find(".message").hide().fadeIn('slow').text((new Date()).toLocaleTimeString());
   widget.find(".status").text("OK").removeClass("ko");
   dom.empty().hide();
   
-  while(len--){ console.log(data[len]['reference']);
+  for(var prop in data){
     
-    validClass = (data[len]["valid"] != true) ? "invalid" : "";
-    statusClass = (data[len]["found"] != true) ? "unreached" : "";
-    
-    if(data[len]["valid"] === false || data[len]["found"] === false) { console.log('coucou')
-    	widget.parent().addClass('red-pulse');
-      widget.find(".status").text("KO").addClass("ko");
-      html += "<li class=\"" + validClass + " " + statusClass + " \">" + data[len]["reference"] + "</li>";
-    }
-    
+      if(data[prop]["passed"] != true) {
+        
+        widget.parent().addClass('red-pulse');
+        widget.find(".status").text("KO").addClass("ko");
+        
+        html += "<li id='" + prop + "'>" + prop + "</li>";
+        
+      }
+     
   }
- 
-  dom.html(html).fadeIn('slow');
   
+  dom.html(html).fadeIn('slow');
   
 });

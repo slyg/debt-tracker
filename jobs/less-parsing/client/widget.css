@@ -1,7 +1,8 @@
-.errors {padding-top: 10px; list-style-type: none; text-align: left; margin: 0 10px;}
+.errors {padding-top: 10px; list-style-type: none; text-align: left; color: orange; margin: 0 10px;}
 li {font-family: consolas; padding: 2px 5px; background-color: #333; margin-bottom: 1px;}
-.invalid {color: orange;}
-.unreached {color: gray;}
+
+.invalid {background-color: red;}
+.unreached {background-color: gray;}
 .status {color: lightgreen;
   padding: 10px;
   margin-top: 90px;
