@@ -1,9 +1,9 @@
 
     var 
-        path        = require('path'),
-        Q           = require('q'),
-        reposUp      = require('./utils/repos-up'),
-        conf        = require('./conf')
+        path            = require('path'),
+        Q               = require('q'),
+        reposUp         = require('./utils/repos-up'),
+        enabledRepos    = require('../../conf/enabled.repos')
     ;
     
     function main(){
@@ -11,7 +11,7 @@
         var deferred = Q.defer();
         
         Q   
-            .all(reposUp(conf.repos))
+            .all(reposUp(enabledRepos))
             .then(deferred.resolve, deferred.reject)
         ;
         

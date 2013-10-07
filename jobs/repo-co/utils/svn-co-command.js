@@ -16,7 +16,7 @@ module.exports = function checkout(repoPath, targetPath, cb){
         rm -rf " + targetPath + " && \
         mkdir " + targetPath + " && \
         cd " + targetPath + " && \
-        svn co svn://" + repoPath
+        svn co svn://" + repoPath + " . "
     ;
 
     console.log('Checking out svn repo : ', repoPath );

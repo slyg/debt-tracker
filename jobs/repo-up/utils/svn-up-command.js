@@ -14,7 +14,7 @@ module.exports = function checkout(repoPath, targetPath, cb){
     
     var instructions = "\
         cd " + targetPath + " && \
-        svn up svn://" + repoPath
+        svn up"
     ;
 
     console.log('updating svn repo : ', repoPath );

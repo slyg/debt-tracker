@@ -1,6 +1,7 @@
 .DS_Store
 *conf.js
 *conf.json
+*repos.json
 node_modules/
 workspace/
 reports/
