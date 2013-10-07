@@ -1,4 +1,4 @@
-dashku-widgets
+Debt tracker
 ==============
 
-Set of widgets to be used with Dashku
+A report generator on static resources
