@@ -1,0 +1,6 @@
+{
+    "workspace" : {
+        "path" : "/workspace",
+        "targetDir" : "/path/to/target/in/workspace"
+    }
+}
