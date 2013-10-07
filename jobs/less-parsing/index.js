@@ -13,10 +13,10 @@
         
         Q
             .fcall(function(){return true})
-            .then(require('./assets/buildTargetPath'))      // returns target file (wro.xml file)
-            .then(require('./assets/parseXmlFile'))         // returns wro.xml as js object
-            .then(require('./assets/getLessFiles'))         // returns an array of css files paths
-            .then(require('./assets/lessCheck'))            // launch less parsing and returns a report
+            .then(require('./utils/buildTargetPath'))      // returns target file (wro.xml file)
+            .then(require('./utils/parseXmlFile'))         // returns wro.xml as js object
+            .then(require('./utils/getLessFiles'))         // returns an array of css files paths
+            .then(require('./utils/lessCheck'))            // launch less parsing and returns a report
             .then(function(report){
                 deferred.resolve({"data": report});
             }, function(err){

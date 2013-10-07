@@ -11,7 +11,7 @@
     function main(){
     
         var 
-            formatData = require('./assets/formatData'),
+            formatData = require('./utils/formatData'),
             deferred = Q.defer(),
             jsTreeFilePath = path.join(cwd, conf.workspace.path, conf.workspace.targetDir)
         ;

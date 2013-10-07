@@ -2,7 +2,7 @@
     var 
         path        = require('path'),
         Q           = require('q'),
-        repoCo      = require('./assets/repos-co'),
+        repoCo      = require('./utils/repos-co'),
         conf        = require('./conf')
     ;
     
