@@ -2,7 +2,7 @@
     var 
         path        = require('path'),
         Q           = require('q'),
-        repoCo      = require('./utils/repos-co'),
+        reposCo      = require('./utils/repos-co'),
         conf        = require('./conf')
     ;
     
@@ -11,7 +11,7 @@
         var deferred = Q.defer();
         
         Q   
-            .all(repoCo(conf.repos))
+            .all(reposCo(conf.repos))
             .then(deferred.resolve, deferred.reject)
         ;
         

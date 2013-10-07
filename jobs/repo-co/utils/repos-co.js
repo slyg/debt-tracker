@@ -15,7 +15,7 @@ module.exports = function(references){
     
 }
 
-function repoCheckout(ref){ //viadeo-jsp / frontend-framework
+function repoCheckout(ref){
     
     var deferred = Q.defer();
     
