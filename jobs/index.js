@@ -3,8 +3,12 @@ var _ = require('underscore');
 var enabledJobs = require('../conf/enabled.jobs');
 var fs = require('fs');
 var path = require('path');
+var conf = require('../conf/server')
 
-exports.start = function(next){
+exports.start = function(){
+
+	var deferred = Q.defer();
+	var cwd = process.cwd()
 	
 	console.log("Grabbing data ...");
 
@@ -15,18 +19,19 @@ exports.start = function(next){
 		_.each(results, function(result, index){
 
 			fs.writeFile(
-				path.join(process.cwd(), "/reports/", enabledJobs[index] +'.json'), 
+				path.join(cwd, conf.reportsPath, enabledJobs[index] +'.json'), 
 				JSON.stringify(result, null, 4),
 				function(err) { if(err) throw new Error(err); }
 			);
 
 		});
 
-		if(next) next();
+		deferred.resolve();
 
-	}, function(err){ console.log(err); })
+	}, deferred.reject)
 
-	
+	return deferred.promise;
+
 }
 
 exports.init = function(){} // TODO, checkout repos then generate report

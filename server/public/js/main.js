@@ -2,12 +2,7 @@
 
 	var detroit = new D;
 
-	detroit.json("data.json", [barChart, scatterPlotChart, uiHandlers]);
-
-
-
-
-
+	detroit.json("public/reports/css-score.json", [barChart, scatterPlotChart, uiHandlers]);
 
 	function uiHandlers(){
 
