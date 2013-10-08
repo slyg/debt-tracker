@@ -1,0 +1,19 @@
+{
+  "name": "debt-tracker",
+  "version": "0.0.0",
+  "homepage": "https://github.com/slyg/debt-tracker",
+  "authors": [
+    "Sylvain Faucherand <syl.faucherand@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tetra-ui": "~1.3.0"
+  }
+}

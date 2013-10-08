@@ -2,6 +2,7 @@
 *conf.js
 *conf.json
 *repos.json
+bower_components/
 conf/*.json
 node_modules/
 workspace/
