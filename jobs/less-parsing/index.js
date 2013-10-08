@@ -17,11 +17,7 @@
             .then(require('./utils/parseXmlFile'))         // returns wro.xml as js object
             .then(require('./utils/getLessFiles'))         // returns an array of css files paths
             .then(require('./utils/lessCheck'))            // launch less parsing and returns a report
-            .then(function(report){
-                deferred.resolve({"data": report});
-            }, function(err){
-                deferred.reject(err);
-            })
+            .then(deferred.resolve, deferred.reject)
         ;
         
         return deferred.promise;

@@ -2,6 +2,7 @@
 *conf.js
 *conf.json
 *repos.json
+conf/*.json
 node_modules/
 workspace/
 reports/

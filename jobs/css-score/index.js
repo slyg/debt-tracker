@@ -24,8 +24,8 @@
 
                 var formatedReport = _.map(report, function(item, key){ item.label = key; return item; });
 
-                console.log( util.inspect(formatedReport, false, null) );
-                deferred.resolve({"data": formatedReport});
+                //console.log( util.inspect(formatedReport, false, null) );
+                deferred.resolve(formatedReport);
                 
             }, function(err){
                 deferred.reject(err);

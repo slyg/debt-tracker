@@ -28,7 +28,6 @@
             if(err) {
                 deferred.reject(err);
             } else {
-                console.log(report);
                 deferred.resolve(report);
             }
         });

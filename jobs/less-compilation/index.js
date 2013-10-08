@@ -18,12 +18,7 @@
             .then(require('./utils/putAbsolutePath'))   // returns wro w/classpath replaced by rel to process root path, ie for common resources
             .then(require('./utils/evaluateGroupRef'))  // returns wro with group-ref replaced by original group
             .then(require('./utils/lessCompilation'))   // compiles groups and returns report
-            .then(function(report){
-                console.log( util.inspect(report, false, null) );
-                deferred.resolve({"data": report});
-            }, function(err){
-                deferred.reject(err);
-            })
+            .then(deferred.resolve, deferred.reject)
         ;
         
         return deferred.promise;

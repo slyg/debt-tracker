@@ -17,11 +17,7 @@
             .then(require('./utils/getFiles'))		        // returns an array of file paths
             .then(require('./utils/putAbsolutePath'))      // returns array of file paths w/classpath replaced by rel to process root path, ie for common resources
             .then(require('./utils/checkExistence'))
-            .then(function(report){
-                deferred.resolve({"data": report});
-            }, function(err){
-                deferred.reject(err);
-            })
+            .then(deferred.resolve, deferred.reject)
         ;
         
         return deferred.promise;

@@ -24,7 +24,7 @@ module.exports= function(filePaths){
         fs.exists(filePath, function (exists) {
             if(!exists) report.push(filePath);
             next();
-        });   
+        });
     }
     
     return deferred.promise;

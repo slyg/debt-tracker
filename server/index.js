@@ -5,7 +5,7 @@ var jobs = require('../jobs')
 
 app.get('/generate', function(req, res){
 	res.json({success : true});
-	jobs.start();
+	jobs.start(function(){console.log('... done')});
 });
 
 app.get('/', function(req, res){
