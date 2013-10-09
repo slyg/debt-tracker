@@ -1,33 +1,61 @@
 module.exports = function(grunt){
 
-	grunt.initConfig({
-		assemble: {
-			options: {
-				layout: "server/src/layouts/default.hbs",
-			 	partials: "server/src/partials/**/*.hbs" 
-			},
-			home: {
-				files : {
-			 		'server/public/home/': ["server/src/pages/**/*.hbs"]
-			 	}
-			}
-		},
-		nodemon: {
-			dev: {
-				watchedFolders : [
-					'conf/',
-					'jobs/',
-					'server/'
-				]
-			}
-		}
-	});
+    grunt.initConfig({
 
-	grunt.loadNpmTasks('assemble' );
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-nodemon');
+        concurrent: {
+            dev: ['nodemon', 'watch', 'jshint', 'assemble'],
+            options: {
+                logConcurrentOutput: true
+            }
+        },
+        jshint: {
+            grunt:  ['Gruntfile.js'],
+            all:    ['server/src/javascript/**/*.js']
+        },
+        assemble: {
+            options: {
+                layout: "server/src/templates/layouts/default.hbs",
+                partials: "server/src/templates/partials/**/*.hbs" 
+            },
+            home: {
+                files : {
+                    'server/public/home/': ["server/src/templates/pages/**/*.hbs"]
+                }
+            }
+        },
+        nodemon: {
+            dev: {
+                options : {
+                    watchedFolders : ['conf/', 'jobs/']
+                }
+            }
+        },
+        watch: {
+            scripts: {
+                files: ['server/src/javascript/*.js', 'Gruntfile.js'],
+                tasks: ['jshint:all'],
+                options: {
+                    spawn: false,
+                }
+            },
+            templates: {
+                files: ['server/src/templates/**/*.hbs'],
+                tasks: ['assemble'],
+                options: {
+                    spawn: false,
+                }
+            }
+        }
+
+    });
+
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('assemble' );
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-nodemon');
 
 
-	grunt.registerTask('default', ['assemble', 'nodemon']);
+    grunt.registerTask('default', ['concurrent:dev']);
 
-}
+};

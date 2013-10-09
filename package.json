@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/slyg/debt-tracker.git"
   },
-  "main" : "server/",
+  "main": "server/",
   "dependencies": {
     "underscore": "~1.4.4",
     "jscomplexity": "0.0.11",
@@ -27,6 +27,8 @@
     "grunt": "~0.4.1",
     "assemble": "~0.4.12",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-nodemon": "~0.1.1"
+    "grunt-nodemon": "~0.1.1",
+    "grunt-concurrent": "~0.4.0",
+    "grunt-contrib-jshint": "~0.6.4"
   }
 }
