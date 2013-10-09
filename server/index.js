@@ -3,12 +3,7 @@ var app = express();
 var config = require('../conf/server');
 var jobs = require('../jobs')
 
-app.use('/public', express.static(__dirname + '/public'));
-app.use('/home', express.static(__dirname + '/views'));
-
-app.get('/', function(req, res){
-	res.redirect('/home')
-});
+app.use('/', express.static(__dirname + '/public'));
 
 app.get('/generate', function(req, res){
 	res.json({success : true});
