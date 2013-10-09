@@ -4,13 +4,15 @@ module.exports = function(grunt){
 
         concurrent: {
             dev: ['nodemon', 'watch', 'jshint', 'assemble'],
+            cscripts : ['watch', 'jshint'],
             options: {
                 logConcurrentOutput: true
             }
         },
         jshint: {
             grunt:  ['Gruntfile.js'],
-            all:    ['server/src/javascript/**/*.js']
+            all:    ['server/src/javascript/**/*.js'],
+            options: {esnext : true}
         },
         assemble: {
             options: {
@@ -57,5 +59,6 @@ module.exports = function(grunt){
 
 
     grunt.registerTask('default', ['concurrent:dev']);
+    grunt.registerTask('cscripts', ['concurrent:cscripts']);
 
 };

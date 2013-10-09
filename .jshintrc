@@ -3,7 +3,5 @@
   "eqnull": true,
   "eqeqeq": true,
   "undef": true,
-  "globals": {
-    "jQuery": true
-  }
+  "esnext": true
 }
