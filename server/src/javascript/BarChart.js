@@ -1,17 +1,30 @@
-function barChart(error, data){
+function BarChart(containerId, data, map, filter){
 
-  var 
-      containerId = "#bar-chart-holder",
-      chart = null, 
-      store = new Store(data),
-      numScaler = new NumScaler(data),
-      colorScaler = new ColorScaler(data),
-      tickNum = 10
-  ;
+  var dataset = data;
+  var mapper = {};
+  var chart = null;
+  var store, numScaler, colorScaler;
+  var tickNum = 5;
+
+  // if a filter is defined use it
+  if(typeof filter === "function") dataset = _.filter(dataset, filter);
+
+  // maps x, label to the desired properties
+  dataset = _.map(dataset, function(item){ 
+      var mapper = {};
+      for (var prop in map){ 
+          mapper[prop] = (typeof map[prop] === "function") ? map[prop](item) : item[map[prop]];
+      }
+      return mapper;
+  });
+  
+  store = new Store(dataset);
+  numScaler = new NumScaler(dataset);
+  colorScaler = new ColorScaler(dataset);
 
   /* render function */
 
-  function draw(param){
+  function render(param){
 
     var data = store.orderBy(param).getAll();
 
@@ -50,7 +63,7 @@ function barChart(error, data){
         .attr("dx", -5) 
         .attr("dy", 6) 
         .attr("text-anchor", "start")
-        .text(function(d){ return d.label; })
+        .text(function(d){ return d.l; })
     ;
     
     /* adding rules */
@@ -132,17 +145,17 @@ function barChart(error, data){
     this.add = function(data){
       this._data = data;
       return this;
-    },
+    };
 
     this.orderBy = function(param){
       this._data = _.filter(this._data, function(pkg){ return +pkg[param]; });
       this._data = _.sortBy(this._data, function(pkg){ return -(+pkg[param]); });
       return this;
-    }
+    };
 
     this.update = this.add;
 
-    this.getAll = function(){ return this._data; }
+    this.getAll = function(){ return this._data; };
 
   }
 
@@ -151,11 +164,11 @@ function barChart(error, data){
     this._data = data;
 
     this.calc = function(param){
-      return d3.scale.sqrt()
+      return d3.scale.linear()
         .domain([0, d3.max(this._data, function(d){ return +d[param]; })])
         .range(["0", "100%"])
       ;
-    }
+    };
 
   }
 
@@ -166,17 +179,18 @@ function barChart(error, data){
     this.colorHigh = '#006aa8';
 
     this.calc = function(){
-      return d3.scale.sqrt()
+      return d3.scale.linear()
       .domain([0, this.len])
       .range([this.colorHigh, this.colorLow]);
-    }
+    };
 
   }
 
-  window.updateBarGraph = update;
+  // exports
 
-  draw("avgScore");
+  this.render = render;
+  this.update = update;
 
-};
+}
 
 

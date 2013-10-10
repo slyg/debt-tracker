@@ -34,10 +34,12 @@ module.exports = function(grunt){
             },
             dist: {
                 src: [
-                    'server/src/javascript/bar-chart.js',
-                    'server/src/javascript/scatter-plot-chart.js',
+                    'server/src/javascript/D.js',
+                    'server/src/javascript/ScatterPlotChart.js',
+                    'server/src/javascript/BarChart.js',
                     'server/src/javascript/user-handler.js',
-                    'server/src/javascript/init.js',
+                    'server/src/javascript/bar-chart.js',
+                    'server/src/javascript/init.js'
                 ],
                 dest: 'server/public/javascript/main.js',
             },
