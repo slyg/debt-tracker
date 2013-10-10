@@ -3,28 +3,46 @@ module.exports = function(grunt){
     grunt.initConfig({
 
         concurrent: {
-            dev: ['nodemon', 'watch', 'jshint', 'assemble'],
-            cscripts : ['watch', 'jshint'],
+            dev: ['nodemon', 'watch', 'assemble', 'jshint', 'concat'],
+            cscripts : ['watch', 'jshint', 'concat'],
             options: {
                 logConcurrentOutput: true
             }
         },
+
         jshint: {
             grunt:  ['Gruntfile.js'],
             all:    ['server/src/javascript/**/*.js'],
             options: {esnext : true}
         },
+
         assemble: {
             options: {
                 layout: "server/src/templates/layouts/default.hbs",
                 partials: "server/src/templates/partials/**/*.hbs" 
             },
-            home: {
+            stats: {
                 files : {
-                    'server/public/home/': ["server/src/templates/pages/**/*.hbs"]
+                    'server/public/stats/': ["server/src/templates/pages/**/*.hbs"]
                 }
             }
         },
+
+        concat: {
+            options: {
+                separator: ';',
+            },
+            dist: {
+                src: [
+                    'server/src/javascript/bar-chart.js',
+                    'server/src/javascript/scatter-plot-chart.js',
+                    'server/src/javascript/user-handler.js',
+                    'server/src/javascript/init.js',
+                ],
+                dest: 'server/public/javascript/main.js',
+            },
+        },
+
         nodemon: {
             dev: {
                 options : {
@@ -32,10 +50,11 @@ module.exports = function(grunt){
                 }
             }
         },
+
         watch: {
             scripts: {
                 files: ['server/src/javascript/*.js', 'Gruntfile.js'],
-                tasks: ['jshint:all'],
+                tasks: ['jshint:all', 'concat'],
                 options: {
                     spawn: false,
                 }
@@ -51,12 +70,16 @@ module.exports = function(grunt){
 
     });
 
+    /* --- */
+
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('assemble' );
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
 
+    /* --- */
 
     grunt.registerTask('default', ['concurrent:dev']);
     grunt.registerTask('cscripts', ['concurrent:cscripts']);
