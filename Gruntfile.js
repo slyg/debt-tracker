@@ -3,8 +3,8 @@ module.exports = function(grunt){
     grunt.initConfig({
 
         concurrent: {
-            dev: ['nodemon', 'watch', 'assemble', 'jshint', 'concat'],
-            cscripts : ['watch', 'jshint', 'concat'],
+            dev: ['nodemon:dev', 'watch', 'jshint', 'copy:dev', 'assemble', 'lmd'],
+            cscripts : ['watch', 'jshint', 'lmd'],
             options: {
                 logConcurrentOutput: true
             }
@@ -14,6 +14,10 @@ module.exports = function(grunt){
             grunt:  ['Gruntfile.js'],
             all:    ['server/src/javascript/**/*.js'],
             options: {esnext : true}
+        },
+
+        lmd : {
+            build_name : 'main'
         },
 
         assemble: {
@@ -28,21 +32,13 @@ module.exports = function(grunt){
             }
         },
 
-        concat: {
-            options: {
-                separator: ';',
-            },
-            dist: {
-                src: [
-                    'server/src/javascript/D.js',
-                    'server/src/javascript/ScatterPlotChart.js',
-                    'server/src/javascript/BarChart.js',
-                    'server/src/javascript/user-handler.js',
-                    'server/src/javascript/bar-chart.js',
-                    'server/src/javascript/init.js'
-                ],
-                dest: 'server/public/javascript/main.js',
-            },
+        copy: {
+            dev: {
+                expand: true,
+                cwd: 'server/src/vendors/',
+                src: '**',
+                dest: 'server/public/vendors/'
+            }
         },
 
         nodemon: {
@@ -55,8 +51,8 @@ module.exports = function(grunt){
 
         watch: {
             scripts: {
-                files: ['server/src/javascript/*.js', 'Gruntfile.js'],
-                tasks: ['jshint:all', 'concat'],
+                files: ['server/src/javascript/*.js', 'Gruntfile.js', '.lmd/*'],
+                tasks: ['jshint:all', 'lmd'],
                 options: {
                     spawn: false,
                 }
@@ -80,6 +76,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('assemble' );
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-lmd');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     /* --- */
 

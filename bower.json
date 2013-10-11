@@ -14,6 +14,9 @@
     "tests"
   ],
   "dependencies": {
-    "tetra-ui": "~1.3.0"
+    "tetra-ui": "~1.3.0",
+    "underscore": "~1.5.2",
+    "d3": "~3.3.7",
+    "jquery": "~2.0.3"
   }
 }

@@ -1,4 +1,9 @@
-function ScatterPlotChart(containerId, data, map, filter){
+require('d3'); // d3 hack, d3 is a global when required :-/
+var _ = require('underscore');
+
+//console.log(_);
+
+function ScatterPlotChart(containerId, data, map, filter){ 
 
     /* Prepare dataset */
 
@@ -150,8 +155,10 @@ function ScatterPlotChart(containerId, data, map, filter){
 
     }
 
-    // exports
+    // methods
 
     this.render = render;
 
 }
+
+module.exports = ScatterPlotChart;

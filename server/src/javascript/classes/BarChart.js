@@ -1,3 +1,6 @@
+require('d3'); // d3 hack, d3 is a global when required :-/
+var _ = require('underscore');
+
 function BarChart(containerId, data, map, filter){
 
   var dataset = data;
@@ -186,11 +189,13 @@ function BarChart(containerId, data, map, filter){
 
   }
 
-  // exports
+  // methods
 
   this.render = render;
   this.update = update;
 
 }
+
+module.exports = BarChart;
 
 

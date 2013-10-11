@@ -1,4 +1,6 @@
-function D(){
+require('d3'); // d3 hack, d3 is a global when required :-/
+
+function Detroit(){
 
     this.json = function(jsonPath, callbacksArray){
 
@@ -10,3 +12,5 @@ function D(){
     };
 
 }
+
+module.exports = Detroit;

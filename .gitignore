@@ -7,3 +7,5 @@ conf/*.json
 node_modules/
 workspace/
 reports/
+server/src/vendor/
+server/public
